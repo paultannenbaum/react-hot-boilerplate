@@ -1,8 +1,9 @@
 'use strict';
 
-var React  = require('react');
-var Tile   = require('./tile');
-var Header = require('./header');
+var React   = require('react');
+var Tile    = require('./tile');
+var Header  = require('./header');
+var Sidebar = require('./sidebar');
 
 var App = React.createClass({
   propTypes: {},
@@ -16,6 +17,7 @@ var App = React.createClass({
         [null, null, null],
         [null, null, null]
       ],
+      playHistory: [],
       gameStatus: 'open'
     };
   },
@@ -61,14 +63,21 @@ var App = React.createClass({
   },
 
   recordTilePlay: function(tile) {
-    var arrayRef = this.state.boardValues;
-    var row      = tile.props.position[0];
-    var cell     = tile.props.position[1];
+    var tileArrayRef    = this.state.boardValues;
+    var historyArrayRef = this.state.playHistory;
+    var row             = tile.props.position[0];
+    var cell            = tile.props.position[1];
 
-    arrayRef[row][cell] = this.state.player;
+    tileArrayRef[row][cell] = this.state.player;
+    historyArrayRef.push({
+      player: this.state.player,
+      row: row,
+      cell: cell
+    });
 
     this.setState({
-      tileValues: arrayRef
+      tileValues: tileArrayRef,
+      playHistory: historyArrayRef
     });
   },
 
@@ -102,7 +111,7 @@ var App = React.createClass({
     return (
       <div id="app">
         <Header player={this.state.player} gameStatus={this.state.gameStatus} />
-        <div className='sidebar'>This is the sidebar</div>
+        <Sidebar moves={this.state.playHistory} />
         <div className='board'>
           <Tile position={[0, 0]} onClick={this.handleTileClick} />
           <Tile position={[0, 1]} onClick={this.handleTileClick} />

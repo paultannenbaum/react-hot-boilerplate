@@ -24,8 +24,10 @@ header.game-over {
 
 .sidebar {
     float: left;
-    width: 295px;
-    min-height: 600px;
+    width: 250px;
+    min-height: 580px;
+    border: 2px solid #000;
+    padding: 10px;
 }
 
 .board {
@@ -45,4 +47,8 @@ header.game-over {
     font-size: 30px;
     text-align: center;
     line-height: 200px;
+}
+
+li {
+    margin-top: 10px;
 }
