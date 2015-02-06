@@ -1,9 +1,8 @@
 'use strict';
 
 var React = require('react');
-var Tile  = require('./tile');
 
-var App = React.createClass({
+module.exports = React.createClass({
   propTypes: {},
   mixins:    [],
 
@@ -15,19 +14,7 @@ var App = React.createClass({
 
   render: function() {
     return (
-      <div id='board'>
-        <Tile />
-        <Tile />
-        <Tile />
-        <Tile />
-        <Tile />
-        <Tile />
-        <Tile />
-        <Tile />
-        <Tile />
-      </div>
+      <div className='tile'></div>
     );
   }
 });
-
-module.exports = App;
