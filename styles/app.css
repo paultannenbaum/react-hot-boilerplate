@@ -1,0 +1,17 @@
+#board {
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+    margin-top: 100px;
+    border: 1px solid #000;
+}
+
+.tile {
+    width: 33%;
+    height: 33%;
+    border: 1px solid #000;
+    float: left;
+    font-size: 30px;
+    text-align: center;
+    line-height: 200px;
+}
