@@ -7,15 +7,36 @@ var App = React.createClass({
   propTypes: {},
   mixins:    [],
 
-
   getInitialState: function() {
     return {
       player: 'X',
-      tileValues: [],
+      boardValues: [
+        [null, null, null],
+        [null, null, null],
+        [null, null, null]
+      ],
       gameStatus: 'open'
     };
   },
-  getDefaultProps: function() {},
+  getDefaultProps: function() {
+    return {
+      possibleWinRoutes: [
+        // Horizontals
+        [[0,0], [0,1], [0,2]],
+        [[1,0], [1,1], [1,2]],
+        [[2,0], [2,1], [2,2]],
+
+        // Verticals
+        [[0,0], [1,0], [2,0]],
+        [[0,1], [1,1], [2,1]],
+        [[0,2], [1,2], [2,2]],
+
+        // Diagonals
+        [[0,0], [1,1], [2,2]],
+        [[0,2], [1,1], [2,0]]
+      ]
+    }
+  },
   componentWillMount: function() {},
   componentWillReceiveProps: function() {},
   componentWillUnmount: function() {},
@@ -27,7 +48,6 @@ var App = React.createClass({
       this.analyzeBoardForWinOrDraw();
 
       if (this.state.gameStatus === 'open') {
-        console.log('players switched');
         this.switchPlayers();
       }
     }
@@ -40,8 +60,11 @@ var App = React.createClass({
   },
 
   recordTilePlay: function(tile) {
-    var arrayRef = this.state.tileValues;
-    arrayRef[tile.props.index] = this.state.player;
+    var arrayRef = this.state.boardValues;
+    var row      = tile.props.position[0];
+    var cell     = tile.props.position[1];
+
+    arrayRef[row][cell] = this.state.player;
 
     this.setState({
       tileValues: arrayRef
@@ -50,24 +73,17 @@ var App = React.createClass({
 
   // This is whole method is pretty shitty, but its just a prototype
   analyzeBoardForWinOrDraw: function() {
-    var possibleWinRoutes = [
-      [0,1,2],
-      [3,4,5],
-      [6,7,8],
-      [0,3,6],
-      [1,4,7],
-      [2,5,8],
-      [0,4,8],
-      [2,4,6]
-    ];
+    this.props.possibleWinRoutes.forEach(function(winRoute) {
+      var routeState = '';
 
-    possibleWinRoutes.forEach(function(winRoute) {
-      var currentStateofRoute =
-        this.state.tileValues[winRoute[0]] +
-        this.state.tileValues[winRoute[1]] +
-        this.state.tileValues[winRoute[2]];
+      winRoute.forEach(function(cellPosition) {
+        var row  = cellPosition[0];
+        var cell = cellPosition[1];
 
-      if (currentStateofRoute === 'XXX' || currentStateofRoute === 'OOO') {
+        routeState += this.state.boardValues[row][cell];
+      }, this);
+
+      if (routeState === 'XXX' || routeState === 'OOO') {
         this.setState({
           gameStatus: 'closed'
         });
@@ -84,15 +100,15 @@ var App = React.createClass({
   render: function() {
     return (
       <div id='board'>
-        <Tile index={0} onClick={this.handleTileClick} />
-        <Tile index={1} onClick={this.handleTileClick} />
-        <Tile index={2} onClick={this.handleTileClick} />
-        <Tile index={3} onClick={this.handleTileClick} />
-        <Tile index={4} onClick={this.handleTileClick} />
-        <Tile index={5} onClick={this.handleTileClick} />
-        <Tile index={6} onClick={this.handleTileClick} />
-        <Tile index={7} onClick={this.handleTileClick} />
-        <Tile index={8} onClick={this.handleTileClick} />
+        <Tile position={[0, 0]} onClick={this.handleTileClick} />
+        <Tile position={[0, 1]} onClick={this.handleTileClick} />
+        <Tile position={[0, 2]} onClick={this.handleTileClick} />
+        <Tile position={[1, 0]} onClick={this.handleTileClick} />
+        <Tile position={[1, 1]} onClick={this.handleTileClick} />
+        <Tile position={[1, 2]} onClick={this.handleTileClick} />
+        <Tile position={[2, 0]} onClick={this.handleTileClick} />
+        <Tile position={[2, 1]} onClick={this.handleTileClick} />
+        <Tile position={[2, 2]} onClick={this.handleTileClick} />
       </div>
     );
   }
