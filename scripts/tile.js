@@ -4,7 +4,8 @@ var React = require('react');
 
 module.exports = React.createClass({
   propTypes: {
-    onClick: React.PropTypes.func
+    onClick: React.PropTypes.func,
+    index: React.PropTypes.number
   },
   mixins:    [],
 
