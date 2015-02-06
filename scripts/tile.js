@@ -2,7 +2,7 @@
 
 var React = require('react');
 
-module.exports = React.createClass({
+var Tile = React.createClass({
   propTypes: {
     onClick: React.PropTypes.func,
     index: React.PropTypes.number
@@ -31,3 +31,5 @@ module.exports = React.createClass({
     );
   }
 });
+
+module.exports = Tile;

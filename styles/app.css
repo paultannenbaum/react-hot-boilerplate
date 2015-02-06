@@ -1,12 +1,33 @@
-#board {
+#app {
+    width: 900px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+header {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+
+.sidebar {
+    float: left;
+    width: 295px;
+    min-height: 600px;
+}
+
+.board {
+    float: right;
     width: 600px;
     height: 600px;
     margin: 0 auto;
-    margin-top: 100px;
     border: 1px solid #000;
     user-select: none;
     cursor: pointer;
-
 }
 
 .tile {

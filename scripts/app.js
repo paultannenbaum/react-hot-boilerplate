@@ -1,7 +1,8 @@
 'use strict';
 
-var React = require('react');
-var Tile  = require('./tile');
+var React  = require('react');
+var Tile   = require('./tile');
+var Header = require('./header');
 
 var App = React.createClass({
   propTypes: {},
@@ -99,16 +100,20 @@ var App = React.createClass({
 
   render: function() {
     return (
-      <div id='board'>
-        <Tile position={[0, 0]} onClick={this.handleTileClick} />
-        <Tile position={[0, 1]} onClick={this.handleTileClick} />
-        <Tile position={[0, 2]} onClick={this.handleTileClick} />
-        <Tile position={[1, 0]} onClick={this.handleTileClick} />
-        <Tile position={[1, 1]} onClick={this.handleTileClick} />
-        <Tile position={[1, 2]} onClick={this.handleTileClick} />
-        <Tile position={[2, 0]} onClick={this.handleTileClick} />
-        <Tile position={[2, 1]} onClick={this.handleTileClick} />
-        <Tile position={[2, 2]} onClick={this.handleTileClick} />
+      <div id="app">
+        <Header />
+        <div className='sidebar'>This is the sidebar</div>
+        <div className='board'>
+          <Tile position={[0, 0]} onClick={this.handleTileClick} />
+          <Tile position={[0, 1]} onClick={this.handleTileClick} />
+          <Tile position={[0, 2]} onClick={this.handleTileClick} />
+          <Tile position={[1, 0]} onClick={this.handleTileClick} />
+          <Tile position={[1, 1]} onClick={this.handleTileClick} />
+          <Tile position={[1, 2]} onClick={this.handleTileClick} />
+          <Tile position={[2, 0]} onClick={this.handleTileClick} />
+          <Tile position={[2, 1]} onClick={this.handleTileClick} />
+          <Tile position={[2, 2]} onClick={this.handleTileClick} />
+        </div>
       </div>
     );
   }
