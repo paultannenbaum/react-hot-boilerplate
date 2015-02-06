@@ -101,7 +101,7 @@ var App = React.createClass({
   render: function() {
     return (
       <div id="app">
-        <Header />
+        <Header player={this.state.player} gameStatus={this.state.gameStatus} />
         <div className='sidebar'>This is the sidebar</div>
         <div className='board'>
           <Tile position={[0, 0]} onClick={this.handleTileClick} />

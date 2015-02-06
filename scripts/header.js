@@ -3,20 +3,34 @@
 var React = require('react');
 
 var Header = React.createClass({
-  propTypes: {},
+  propTypes: {
+    player:     React.PropTypes.string,
+    gameStatus: React.PropTypes.string
+  },
   mixins:    [],
 
   getInitialState: function() {
     return {};
   },
-  getDefaultProps: function() {},
+  getDefaultProps: function() {
+  },
   componentWillMount: function() {},
   componentWillReceiveProps: function() {},
   componentWillUnmount: function() {},
 
   render: function() {
+    var text      = '';
+    var className = '';
+
+    if (this.props.gameStatus === 'open') {
+      text = "Game on! Player " + this.props.player + "'s Turn";
+    } else {
+      text      = "Game Over. Player " + this.props.player + " Wins!";
+      className = 'game-over';
+    }
+
     return (
-      <header>This is the header</header>
+      <header className={className}>{text}</header>
     );
   }
 });
