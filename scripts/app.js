@@ -3,7 +3,20 @@
 var React = require('react');
 
 var App = React.createClass({
-  render() {
+  propTypes: {},
+  mixins:    [],
+
+  getInitialState: function() {},
+  getDefaultProps: function() {},
+
+  componentWillMount: function() {},
+  componentWillReceiveProps: function() {},
+  componentWillUnmount: function() {},
+
+  _parseData: function() {},
+  _onSelect: function() {},
+
+  render: function() {
     return (
       <div id='board'>
         <div className='tile'></div>
