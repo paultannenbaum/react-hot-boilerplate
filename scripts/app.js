@@ -1,6 +1,7 @@
 'use strict';
 
 var React   = require('react');
+var _       = require('underscore');
 var Tile    = require('./tile');
 var Header  = require('./header');
 var Sidebar = require('./sidebar');
@@ -63,12 +64,12 @@ var App = React.createClass({
   },
 
   recordTilePlay: function(tile) {
-    var tileArrayRef    = this.state.boardValues;
+    var boardArrayRef   = this.state.boardValues;
     var historyArrayRef = this.state.playHistory;
     var row             = tile.props.position[0];
     var cell            = tile.props.position[1];
 
-    tileArrayRef[row][cell] = this.state.player;
+    boardArrayRef[row][cell] = this.state.player;
     historyArrayRef.push({
       player: this.state.player,
       row: row,
@@ -76,29 +77,35 @@ var App = React.createClass({
     });
 
     this.setState({
-      tileValues: tileArrayRef,
+      boardValues: boardArrayRef,
       playHistory: historyArrayRef
     });
   },
 
   // This is whole method is pretty shitty, but its just a prototype
   analyzeBoardForWinOrDraw: function() {
-    this.props.possibleWinRoutes.forEach(function(winRoute) {
-      var routeState = '';
+    if (!_.contains(_.flatten(this.state.boardValues), null)) {
+      this.setState({
+        gameStatus: 'draw'
+      });
+    } else {
+      _.each(this.props.possibleWinRoutes, function(winRoute) {
+        var routeState = '';
 
-      winRoute.forEach(function(cellPosition) {
-        var row  = cellPosition[0];
-        var cell = cellPosition[1];
+        _.each(winRoute, function(cellPosition) {
+          var row  = cellPosition[0];
+          var cell = cellPosition[1];
 
-        routeState += this.state.boardValues[row][cell];
+          routeState += this.state.boardValues[row][cell];
+        }, this);
+
+        if (routeState === 'XXX' || routeState === 'OOO') {
+          this.setState({
+            gameStatus: 'closed'
+          });
+        }
       }, this);
-
-      if (routeState === 'XXX' || routeState === 'OOO') {
-        this.setState({
-          gameStatus: 'closed'
-        });
-      }
-    }, this);
+    }
   },
 
   switchPlayers: function() {

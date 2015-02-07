@@ -22,11 +22,18 @@ var Header = React.createClass({
     var text      = '';
     var className = '';
 
-    if (this.props.gameStatus === 'open') {
-      text = "Game on! Player " + this.props.player + "'s Turn";
-    } else {
-      text      = "Game Over. Player " + this.props.player + " Wins!";
-      className = 'game-over';
+    switch (this.props.gameStatus) {
+      case 'open':
+        text = "Game on! Player " + this.props.player + "'s Turn";
+        break;
+      case 'draw':
+        text      = "Game Over. Draw Match";
+        className = 'game-over';
+        break;
+      case 'closed':
+        text      = "Game Over. Player " + this.props.player + " Wins!";
+        className = 'game-over';
+        break;
     }
 
     return (
