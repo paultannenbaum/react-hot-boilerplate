@@ -87,33 +87,35 @@ var App = React.createClass({
     return d.promise;
   },
 
-  // This is whole method is pretty shitty, but its just a prototype
   analyzeBoardForWinOrDraw: function() {
-    var d = Q.defer();
+    var d         = Q.defer();
+    var boardOpen = true;
 
-    if (!_.contains(_.flatten(this.state.boardValues), null)) {
-      this.setState({
-        gameStatus: 'draw'
-      }, d.reject);
-    } else {
-      _.each(this.props.possibleWinRoutes, function(winRoute, index) {
-        var routeState = '';
+    _.each(this.props.possibleWinRoutes, function(winRoute, index) {
+      var routeState = '';
+      _.each(winRoute, function(cellPosition) {
+        var row  = cellPosition[0];
+        var cell = cellPosition[1];
 
-        _.each(winRoute, function(cellPosition) {
-          var row  = cellPosition[0];
-          var cell = cellPosition[1];
-
-          routeState += this.state.boardValues[row][cell];
-        }, this);
-
-        if (routeState === 'XXX' || routeState === 'OOO') {
-          this.setState({
-            gameStatus: 'closed'
-          }, d.reject);
-        } else if (index == this.props.possibleWinRoutes.length-1) {
-          d.resolve()
-        }
+        routeState += this.state.boardValues[row][cell];
       }, this);
+
+      if (routeState === 'XXX' || routeState === 'OOO') {
+        boardOpen = false;
+        this.setState({
+          gameStatus: 'closed'
+        }, d.reject);
+      }
+    }, this);
+
+    if (boardOpen) {
+      if (!_.contains(_.flatten(this.state.boardValues), null)) {
+        this.setState({
+          gameStatus: 'draw'
+        }, d.reject);
+      } else {
+        d.resolve()
+      }
     }
 
     return d.promise;
