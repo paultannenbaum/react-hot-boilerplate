@@ -20,11 +20,11 @@ var Sidebar = React.createClass({
     return (
       <div className='sidebar'>
         <b>Game Play History</b>
-        <ul>
+        <ol>
         {this.props.moves.map(function(move, index) {
           return <li key={index}>Player {move.player}, Row {move.row}, Cell {move.cell}</li>
         })}
-        </ul>
+        </ol>
       </div>
     );
   }
