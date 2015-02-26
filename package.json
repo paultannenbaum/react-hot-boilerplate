@@ -31,6 +31,7 @@
     "jsx-loader": "^0.12.2",
     "q": "^1.1.2",
     "react-hot-loader": "^1.1.1",
+    "reflux": "^0.2.5",
     "underscore": "^1.7.0",
     "webpack": "^1.5.1",
     "webpack-dev-server": "1.6.4"
