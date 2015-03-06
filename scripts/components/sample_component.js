@@ -1,14 +1,15 @@
-'use strict'
+'use strict';
 
-var React = require('react');
+var React        = require('react');
+var SampleAction = require('../actions/sample_action');
 
-var App = React.createClass({
+var SampleComponent = React.createClass({
   propTypes: {},
   mixins:    [],
 
   getInitialState: function() {
     return {
-      echo: 'Hello Foo'
+      echo: 'Hello from the sample component'
     };
   },
   getDefaultProps: function() {},
@@ -23,4 +24,4 @@ var App = React.createClass({
   }
 });
 
-module.exports = App;
+module.exports = SampleComponent;
