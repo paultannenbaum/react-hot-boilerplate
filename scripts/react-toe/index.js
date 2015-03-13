@@ -1,6 +1,6 @@
 'use strict';
 
 var React = require('react');
-var App   = require('./../reflux');
+var App   = require('./app');
 
 React.render(<App />, document.body);
